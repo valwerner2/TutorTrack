@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ContactsView.swift
 //  TutorTrack
 //
 //  Created by Valentin Werner on 21.08.25.
@@ -8,22 +8,26 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct PupilView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @Query private var pupils: [Pupil]
+    
+    @State private var path = NavigationPath()
+    
     var body: some View {
-        NavigationSplitView {
+        NavigationStack(path: $path) {
             List {
-                ForEach(items) { item in
+                ForEach(pupils) { currentPupil in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        PupilDetailView(pupil: currentPupil)
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(currentPupil.name)
                     }
                 }
                 .onDelete(perform: deleteItems)
             }
+            .navigationTitle("People")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -34,28 +38,31 @@ struct ContentView: View {
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
+            .navigationDestination(for: Pupil.self) { pupil in
+                PupilDetailView(pupil: pupil)
+            }
         }
     }
-
     private func addItem() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+            let newPupil = Pupil()
+            modelContext.insert(newPupil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            path.append(newPupil)
+                        }
         }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(pupils[index])
             }
         }
     }
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+    PupilView()
+        .modelContainer(for: Pupil.self, inMemory: true)
 }
