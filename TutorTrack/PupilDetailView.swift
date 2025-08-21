@@ -62,11 +62,7 @@ struct PupilDetailView: View {
                     Text("Hourly Rate").bold()
                     Spacer()
                     if editMode?.wrappedValue.isEditing == true {
-                        TextField("Hourly Rate",
-                                  text: Binding(
-                                    get: { String(editingPupil.hourlyRate) },
-                                    set: { editingPupil.hourlyRate = Double($0) ?? 0 }
-                                  )
+                        TextField("Hourly Rate", value: $editingPupil.hourlyRate, format: .number
                         )
                         .keyboardType(.decimalPad)
                     } else {
