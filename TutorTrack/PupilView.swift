@@ -47,9 +47,7 @@ struct PupilView: View {
         withAnimation {
             let newPupil = Pupil()
             modelContext.insert(newPupil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            path.append(newPupil)
-                        }
+            path.append(newPupil)
         }
     }
 

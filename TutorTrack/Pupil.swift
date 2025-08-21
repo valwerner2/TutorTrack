@@ -34,3 +34,4 @@ final class Pupil {
         self.hourlyRate = hourlyRate
     }
 }
+
