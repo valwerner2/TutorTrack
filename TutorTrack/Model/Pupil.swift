@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  Pupil.swift
 //  TutorTrack
 //
 //  Created by Valentin Werner on 21.08.25.
