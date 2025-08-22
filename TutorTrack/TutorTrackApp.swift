@@ -13,6 +13,8 @@ struct TutorTrackApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Pupil.self,
+            Transaction.self,
+            CalendarEntry.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

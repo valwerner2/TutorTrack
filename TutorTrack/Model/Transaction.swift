@@ -17,7 +17,6 @@ final class Transaction {
     var title: String
     var note: String
     
-    
     init() {
         self.amount = 0
         self.isBankTransfer = true

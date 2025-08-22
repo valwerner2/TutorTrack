@@ -10,10 +10,15 @@ import SwiftData
 
 @Model
 final class CalendarEntry {
-    var dateInterval: DateInterval
+    var start: Date
+    var end: Date?
     
     init(){
-        // 3600 seconds = 1 hour
-        self.dateInterval = DateInterval(start: Date(), duration: 3600)
+        self.start = Date()
+    }
+    init(endDate: Date){
+        self.start = Date()
+        self.end = endDate
+        
     }
 }
