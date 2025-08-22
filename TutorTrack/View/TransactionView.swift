@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TransactionView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var transactions: [Transaction]
+
+    @StateObject private var viewModel = TransactionViewModel()
     
     var body: some View {
         NavigationStack {
@@ -22,22 +27,27 @@ struct TransactionView: View {
                         HStack {
                             Text("Today")
                             Spacer()
-                            Text("187")
+                            Text(String(viewModel.amountToday))
                         }
                         HStack {
                             Text("Month")
                             Spacer()
-                            Text("187")
+                            Text(String(viewModel.amountMonth))
                         }
                         HStack {
                             Text("Year")
                             Spacer()
-                            Text("187")
+                            Text(String(viewModel.amountYear))
+                        }
+                        HStack {
+                            Text("Total")
+                            Spacer()
+                            Text(String(viewModel.amountTotal))
                         }
                         HStack {
                             Text("Pending")
                             Spacer()
-                            Text("187")
+                            Text(String(viewModel.amountPending))
                         }
                     }
                     .padding(.vertical, 8)
@@ -71,6 +81,12 @@ struct TransactionView: View {
                     }
                 }
             }
+        }
+        .onChange(of: transactions, initial: true ) { _, newValue in
+            viewModel.update(from: newValue)
+        }
+        .onAppear {
+            viewModel.update(from: transactions)
         }
     }
     private func addTransaction() {
