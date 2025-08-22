@@ -20,14 +20,14 @@ class TransactionViewModel: ObservableObject {
     
     
     
-    private var transactions: [Transaction] = []
+    private var transactions: [TransactionModel] = []
     
 
     
-    func update(from transactions: [Transaction]) {
+    func update(from transactions: [TransactionModel]) {
         let now = Date()
         
-        var todayTransactions = transactions.filter({Calendar.current.isDate($0.calendarEntry.start, inSameDayAs: now)})
+        let todayTransactions = transactions.filter({Calendar.current.isDate($0.calendarEntry.start, inSameDayAs: now)})
         
         self.amountToday = 0
         

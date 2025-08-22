@@ -10,12 +10,14 @@ import SwiftData
 
 struct TransactionView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var transactions: [Transaction]
+    @Query private var transactions: [TransactionModel]
 
     @StateObject private var viewModel = TransactionViewModel()
     
+    @State private var path = NavigationPath()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 Section(
                     header:
@@ -81,6 +83,9 @@ struct TransactionView: View {
                     }
                 }
             }
+            .navigationDestination(for: TransactionModel.self) { transaction in
+                TransactionDetailView(transaction: transaction)
+            }
         }
         .onChange(of: transactions, initial: true ) { _, newValue in
             viewModel.update(from: newValue)
@@ -91,11 +96,9 @@ struct TransactionView: View {
     }
     private func addTransaction() {
         withAnimation {
-            /*
-            let newPupil = Pupil()
-            modelContext.insert(newPupil)
-            path.append(newPupil)
-             */
+            let newTransaction = TransactionModel()
+            modelContext.insert(newTransaction)
+            path.append(newTransaction)
         }
     }
 
