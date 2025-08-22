@@ -19,6 +19,6 @@ final class CalendarEntry {
     init(endDate: Date){
         self.start = Date()
         self.end = endDate
-        
+    
     }
 }

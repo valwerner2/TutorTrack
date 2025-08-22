@@ -13,7 +13,7 @@ final class Transaction {
     var amount: Double
     var isBankTransfer: Bool?
     var pupil: Pupil
-    var calendarEntry: CalendarEntry?
+    var calendarEntry: CalendarEntry
     var title: String
     var note: String
     
@@ -21,6 +21,7 @@ final class Transaction {
         self.amount = 0
         self.isBankTransfer = true
         self.pupil = Pupil()
+        self.calendarEntry = CalendarEntry()
         self.title = ""
         self.note = ""
     }

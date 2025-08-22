@@ -8,21 +8,25 @@
 import SwiftUI
 
 struct MainView: View {
-
+    @State private var selectedTab = 1
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             Text("Today")
                 .tabItem{
                     Label("Calendar", systemImage: "calendar")
                 }
-            Text("money")
+                .tag(0)
+            TransactionView()
                 .tabItem{
-                    Label("Payments", systemImage: "polishzlotysign.circle")
+                    Label("Transactions", systemImage: "polishzlotysign.circle")
                 }
+                .tag(1)
             PupilView()
                 .tabItem{
                     Label("People", systemImage: "person.3.sequence.fill")
                 }
+                .tag(2)
         }
     }
 }
