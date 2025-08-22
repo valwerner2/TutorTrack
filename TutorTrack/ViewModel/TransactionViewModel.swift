@@ -32,7 +32,7 @@ class TransactionViewModel: ObservableObject {
         self.amountToday = 0
         
         todayTransactions.forEach { current in
-            if current.isBankTransfer != nil {
+            if current.isBankTransfer == nil {
                 self.amountToday += abs(current.amount)
             }
         }
