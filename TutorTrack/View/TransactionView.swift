@@ -69,7 +69,14 @@ struct TransactionView: View {
                         .font(.headline)
                         .textCase(nil)
                 ) {
-                    
+                    ForEach(transactions) { currentTransaction in
+                        NavigationLink {
+                            TransactionDetailView(transaction: currentTransaction)
+                        } label: {
+                            Text(currentTransaction.title)
+                        }
+                    }
+                    .onDelete(perform: deleteTransaction)
                 }
             }
             .navigationTitle("Transactions")
