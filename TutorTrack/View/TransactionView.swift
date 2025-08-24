@@ -111,11 +111,9 @@ struct TransactionView: View {
 
     private func deleteTransaction(offsets: IndexSet) {
         withAnimation {
-            /*
             for index in offsets {
-                modelContext.delete(pupils[index])
+                modelContext.delete(transactions[index])
             }
-             */
         }
     }
 }
