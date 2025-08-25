@@ -29,12 +29,30 @@ class TransactionViewModel: ObservableObject {
         
         let todayTransactions = transactions.filter({Calendar.current.isDate($0.calendarEntry.start, inSameDayAs: now)})
         
-        self.amountToday = 0
+        let monthTransactions = transactions.filter {
+            Calendar.current.isDate($0.calendarEntry.start, equalTo: now, toGranularity: .month)
+        }
         
-        todayTransactions.forEach { current in
+        let yearTransactions = transactions.filter {
+            Calendar.current.isDate($0.calendarEntry.start, equalTo: now, toGranularity: .year)
+        }
+        
+        self.amountToday = sumTransactions(array: todayTransactions)
+        
+        self.amountMonth = sumTransactions(array: monthTransactions)
+        
+        self.amountYear = sumTransactions(array: yearTransactions)
+        
+        self.amountTotal = sumTransactions(array: transactions)
+    }
+    
+    func sumTransactions(array: [TransactionModel]) -> Double {
+        var sum: Double = 0
+        array.forEach { current in
             if current.isBankTransfer == nil {
-                self.amountToday += abs(current.amount)
+                sum += abs(current.amount)
             }
         }
+        return sum
     }
 }

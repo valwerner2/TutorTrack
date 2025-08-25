@@ -71,7 +71,7 @@ struct TransactionView: View {
                 ) {
                     ForEach(transactions) { currentTransaction in
                         NavigationLink {
-                            TransactionDetailView(transaction: currentTransaction)
+                            TransactionDetailView(transaction: currentTransaction, update: updateWrapper)
                         } label: {
                             Text(currentTransaction.title)
                         }
@@ -91,7 +91,7 @@ struct TransactionView: View {
                 }
             }
             .navigationDestination(for: TransactionModel.self) { transaction in
-                TransactionDetailView(transaction: transaction)
+                TransactionDetailView(transaction: transaction, update: updateWrapper)
             }
         }
         .onChange(of: transactions, initial: true ) { _, newValue in
@@ -100,6 +100,11 @@ struct TransactionView: View {
         .onAppear {
             viewModel.update(from: transactions)
         }
+        
+    }
+    func updateWrapper(){
+        print("updateWrapper")
+        viewModel.update(from: transactions)
     }
     private func addTransaction() {
         withAnimation {

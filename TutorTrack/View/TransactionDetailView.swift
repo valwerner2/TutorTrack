@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TransactionDetailView: View {
     let transaction: TransactionModel
+    let update: () -> Void
     
     @State private var editingTransaction = TransactionModel()
     @Environment(\.editMode) private var editMode
@@ -107,11 +108,11 @@ struct TransactionDetailView: View {
                     }
                 }
             }
+            .onDisappear(){
+                update()
+            }
+            
             
         }
     }
-}
-#Preview {
-    //PupilDetailView(pupil: Pupil(name: "sf", email: "sdf", phone: "222", phoneParent: "aaa", hourlyRate: 187))
-    TransactionDetailView(transaction: TransactionModel())
 }
