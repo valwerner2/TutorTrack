@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import SwiftData
 
 struct TransactionDetailView: View {
     let transaction: TransactionModel
@@ -22,6 +23,14 @@ struct TransactionDetailView: View {
                 .font(.largeTitle)
             
             List {
+                Section(
+                    header:
+                        Text("Person")
+                        .font(.headline)
+                        .textCase(nil)
+                ) {
+                    PupilPickerView(transaction: transaction, suggested: [])
+                }
                 Section(
                     header:
                         Text("Payment")
@@ -57,14 +66,6 @@ struct TransactionDetailView: View {
                             Text("Automatically generated")
                         }
                     }
-                }
-                Section(
-                    header:
-                        Text("Person")
-                        .font(.headline)
-                        .textCase(nil)
-                ) {
-                    
                 }
                 Section(
                     header:
