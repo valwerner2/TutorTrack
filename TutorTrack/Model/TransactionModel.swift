@@ -12,7 +12,7 @@ import SwiftData
 final class TransactionModel {
     var amount: Double
     var isBankTransfer: Bool?
-    var pupil: Pupil
+    var pupil: Pupil?
     var calendarEntry: CalendarEntry
     var title: String
     var note: String
@@ -20,7 +20,7 @@ final class TransactionModel {
     init() {
         self.amount = 0
         self.isBankTransfer = true
-        self.pupil = Pupil()
+        self.pupil = nil
         self.calendarEntry = CalendarEntry()
         self.title = ""
         self.note = ""
