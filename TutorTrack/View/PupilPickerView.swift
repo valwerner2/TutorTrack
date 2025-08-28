@@ -20,6 +20,28 @@ struct PupilPickerView: View {
     
     @Environment(\.editMode) private var editMode
     
+    @State private var searchText = ""
+    
+    private var filteredPupils: [Pupil] {
+        if searchText.isEmpty {
+            print("is empty")
+            return pupils
+        } else {
+            print("not")
+            let temp = pupils.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return temp.isEmpty ? pupils : temp
+        }
+    }
+    
+    private var groupedPupils: [String: [Pupil]] {
+        print("grouping")
+        return Dictionary(
+            grouping: filteredPupils.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+        ) { pupil in
+            String(pupil.name.prefix(1)).uppercased()
+        }
+    }
+    
     var body: some View {
         if editMode?.wrappedValue.isEditing == true {
             if let selectedPupil = transaction.pupil{
@@ -50,27 +72,34 @@ struct PupilPickerView: View {
                 }
             }
             
-            Button("Select other") {
+            Button("show all") {
                 showSheet = true
             }
-                
 
             .sheet(isPresented: $showSheet) {
-                List{
-                    ForEach(pupils) { pupil in
-                        HStack {
-                            Text(pupil.name)
-                            Spacer()
-                            if transaction.pupil == pupil {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
+                NavigationStack {
+                    List {
+                        ForEach(groupedPupils.keys.sorted(), id: \.self) { letter in
+                            Section(header: Text(letter)) {
+                                ForEach(groupedPupils[letter] ?? []) { pupil in
+                                    HStack {
+                                        Text(pupil.name)
+                                        Spacer()
+                                        if transaction.pupil == pupil {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.blue)
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        transaction.pupil = pupil
+                                    }
+                                }
                             }
                         }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            transaction.pupil = pupil
-                        }
                     }
+                    .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+                    .navigationTitle("Pupils")
                 }
             }
         }
