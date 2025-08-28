@@ -17,6 +17,9 @@ struct TransactionDetailView: View {
     @Environment(\.editMode) private var editMode
     @FocusState private var nameFieldIsFocused: Bool
     
+    @Environment(\.modelContext) private var modelContext
+    @Query private var pupils: [Pupil]
+    
     var body: some View {
         VStack(spacing: 0) {
             Text(transaction.title)
@@ -29,7 +32,7 @@ struct TransactionDetailView: View {
                         .font(.headline)
                         .textCase(nil)
                 ) {
-                    PupilPickerView(transaction: transaction, suggested: [])
+                    PupilPickerView(transaction: transaction, suggested: Array(pupils[0..<2]))
                 }
                 Section(
                     header:

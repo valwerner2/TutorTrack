@@ -23,23 +23,30 @@ struct PupilPickerView: View {
     var body: some View {
         if editMode?.wrappedValue.isEditing == true {
             if let selectedPupil = transaction.pupil{
-                HStack{
-                    Text(selectedPupil.name)
-                    Spacer()
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.blue)
+                if !suggested.contains(selectedPupil)
+                {
+                    HStack{
+                        Text(selectedPupil.name)
+                        Spacer()
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.blue)
+                    }
                 }
             }
             ForEach(suggested) { pupil in
-                if transaction.pupil != pupil {
-                    HStack {
-                        Text(pupil.name)
-                        Spacer()
+                HStack {
+                    Text(pupil.name)
+                    Spacer()
+                    if let selectedPupil = transaction.pupil{
+                        if selectedPupil == pupil{
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
                     }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        transaction.pupil = pupil
-                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    transaction.pupil = pupil
                 }
             }
             

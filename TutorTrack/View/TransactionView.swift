@@ -11,7 +11,7 @@ import SwiftData
 struct TransactionView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var transactions: [TransactionModel]
-
+    
     @StateObject private var viewModel = TransactionViewModel()
     
     @State private var path = NavigationPath()
