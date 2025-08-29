@@ -99,7 +99,7 @@ struct PupilPickerView: View {
                         }
                     }
                     .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
-                    .navigationTitle("Pupils")
+                    .navigationTitle("Pick a Person")
                 }
             }
         }
