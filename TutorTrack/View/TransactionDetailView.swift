@@ -11,7 +11,7 @@ import SwiftData
 
 struct TransactionDetailView: View {
     let transaction: TransactionModel
-    let update: () -> Void
+    let update: (() -> Void)?
     
     @State private var editingTransaction = TransactionModel()
     @Environment(\.editMode) private var editMode
@@ -113,7 +113,7 @@ struct TransactionDetailView: View {
                 }
             }
             .onDisappear(){
-                update()
+                update?()
             }
             
             

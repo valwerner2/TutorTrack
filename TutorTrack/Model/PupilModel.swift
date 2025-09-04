@@ -16,6 +16,9 @@ final class PupilModel {
     var phoneParent: String
     var hourlyRate: Double
     
+    @Relationship(deleteRule: .nullify, inverse: \TransactionModel.pupil)
+    var transactions = [TransactionModel]()
+    
     init()
     {
         self.name = ""

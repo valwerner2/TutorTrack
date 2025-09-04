@@ -17,17 +17,14 @@ struct PupilView: View {
     
     private var filteredPupils: [PupilModel] {
         if searchText.isEmpty {
-            print("is empty")
             return pupils
         } else {
-            print("not")
             let temp = pupils.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
             return temp.isEmpty ? pupils : temp
         }
     }
     
     private var groupedPupils: [String: [PupilModel]] {
-        print("grouping")
         return Dictionary(
             grouping: filteredPupils.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
         ) { pupil in

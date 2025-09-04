@@ -103,9 +103,9 @@ struct TransactionView: View {
         
     }
     func updateWrapper(){
-        print("updateWrapper")
         viewModel.update(from: transactions)
     }
+    
     private func addTransaction() {
         withAnimation {
             let newTransaction = TransactionModel()

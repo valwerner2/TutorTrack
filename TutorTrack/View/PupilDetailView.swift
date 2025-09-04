@@ -20,55 +20,63 @@ struct PupilDetailView: View {
                 .font(.largeTitle)
             
             
-            
+        
             List {
-                if editMode?.wrappedValue.isEditing == true {
-                    HStack {
-                        Text("Name").bold()
-                        Spacer()
-                        TextField("Name", text: $editingPupil.name)
-                            .focused($nameFieldIsFocused)
+                Section(
+                    header:
+                        Text("Personal Data")
+                        .font(.headline)
+                        .textCase(nil)
+                ) {
+                    if editMode?.wrappedValue.isEditing == true {
+                        HStack {
+                            Text("Name").bold()
+                            Spacer()
+                            TextField("Name", text: $editingPupil.name)
+                                .focused($nameFieldIsFocused)
+                        }
                     }
-                }
                 
-                HStack {
-                    Text("E-Mail").bold()
-                    Spacer()
-                    if editMode?.wrappedValue.isEditing == true {
-                        TextField("E-Mail", text: $editingPupil.email)
-                    } else {
-                        Text(pupil.email.isEmpty ? "-" : pupil.email)
+                    HStack {
+                        Text("E-Mail").bold()
+                        Spacer()
+                        if editMode?.wrappedValue.isEditing == true {
+                            TextField("E-Mail", text: $editingPupil.email)
+                        } else {
+                            Text(pupil.email.isEmpty ? "-" : pupil.email)
+                        }
+                    }
+                    HStack {
+                        Text("Phone").bold()
+                        Spacer()
+                        if editMode?.wrappedValue.isEditing == true {
+                            TextField("Phone", text: $editingPupil.phone)
+                        } else {
+                            Text(pupil.phone.isEmpty ? "-" : pupil.phone)
+                        }
+                    }
+                    HStack {
+                        Text("Parent-Phone").bold()
+                        Spacer()
+                        if editMode?.wrappedValue.isEditing == true {
+                            TextField("Parent-Phone", text: $editingPupil.phoneParent)
+                        } else {
+                            Text(pupil.phoneParent.isEmpty ? "-" : pupil.phoneParent)
+                        }
+                    }
+                    HStack {
+                        Text("Hourly Rate").bold()
+                        Spacer()
+                        if editMode?.wrappedValue.isEditing == true {
+                            TextField("Hourly Rate", value: $editingPupil.hourlyRate, format: .number
+                            )
+                            .keyboardType(.decimalPad)
+                        } else {
+                            Text(String(pupil.hourlyRate))
+                        }
                     }
                 }
-                HStack {
-                    Text("Phone").bold()
-                    Spacer()
-                    if editMode?.wrappedValue.isEditing == true {
-                        TextField("Phone", text: $editingPupil.phone)
-                    } else {
-                        Text(pupil.phone.isEmpty ? "-" : pupil.phone)
-                    }
-                }
-                HStack {
-                    Text("Parent-Phone").bold()
-                    Spacer()
-                    if editMode?.wrappedValue.isEditing == true {
-                        TextField("Parent-Phone", text: $editingPupil.phoneParent)
-                    } else {
-                        Text(pupil.phoneParent.isEmpty ? "-" : pupil.phoneParent)
-                    }
-                }
-                HStack {
-                    Text("Hourly Rate").bold()
-                    Spacer()
-                    if editMode?.wrappedValue.isEditing == true {
-                        TextField("Hourly Rate", value: $editingPupil.hourlyRate, format: .number
-                        )
-                        .keyboardType(.decimalPad)
-                    } else {
-                        Text(String(pupil.hourlyRate))
-                    }
-                }
+                PupilDetailTransactionView(pupil: pupil)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
