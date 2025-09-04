@@ -12,7 +12,7 @@ import SwiftData
 struct TutorTrackApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Pupil.self,
+            PupilModel.self,
             TransactionModel.self,
             CalendarEntry.self
         ])

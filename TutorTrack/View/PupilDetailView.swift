@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PupilDetailView: View {
-    let pupil: Pupil
+    let pupil: PupilModel
     
-    @State private var editingPupil = Pupil()
+    @State private var editingPupil = PupilModel()
     @Environment(\.editMode) private var editMode
     @FocusState private var nameFieldIsFocused: Bool
     
@@ -92,5 +92,5 @@ struct PupilDetailView: View {
 
 #Preview {
     //PupilDetailView(pupil: Pupil(name: "sf", email: "sdf", phone: "222", phoneParent: "aaa", hourlyRate: 187))
-    PupilDetailView(pupil: Pupil())
+    PupilDetailView(pupil: PupilModel())
 }

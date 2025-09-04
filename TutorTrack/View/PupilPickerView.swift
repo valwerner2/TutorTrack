@@ -10,10 +10,10 @@ import SwiftData
 
 struct PupilPickerView: View {
     let transaction: TransactionModel
-    let suggested: [Pupil]
+    let suggested: [PupilModel]
     
     @Environment(\.modelContext) private var modelContext
-    @Query private var pupils: [Pupil]
+    @Query private var pupils: [PupilModel]
     
     @State private var editingTransaction = TransactionModel()
     @State private var showSheet = false
@@ -22,7 +22,7 @@ struct PupilPickerView: View {
     
     @State private var searchText = ""
     
-    private var filteredPupils: [Pupil] {
+    private var filteredPupils: [PupilModel] {
         if searchText.isEmpty {
             print("is empty")
             return pupils
@@ -33,7 +33,7 @@ struct PupilPickerView: View {
         }
     }
     
-    private var groupedPupils: [String: [Pupil]] {
+    private var groupedPupils: [String: [PupilModel]] {
         print("grouping")
         return Dictionary(
             grouping: filteredPupils.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }

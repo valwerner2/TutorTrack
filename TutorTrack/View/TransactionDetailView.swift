@@ -18,7 +18,7 @@ struct TransactionDetailView: View {
     @FocusState private var nameFieldIsFocused: Bool
     
     @Environment(\.modelContext) private var modelContext
-    @Query private var pupils: [Pupil]
+    @Query private var pupils: [PupilModel]
     
     var body: some View {
         VStack(spacing: 0) {

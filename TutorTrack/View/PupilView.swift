@@ -10,12 +10,12 @@ import SwiftData
 
 struct PupilView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var pupils: [Pupil]
+    @Query private var pupils: [PupilModel]
     
     @State private var path = NavigationPath()
     @State private var searchText = ""
     
-    private var filteredPupils: [Pupil] {
+    private var filteredPupils: [PupilModel] {
         if searchText.isEmpty {
             print("is empty")
             return pupils
@@ -26,7 +26,7 @@ struct PupilView: View {
         }
     }
     
-    private var groupedPupils: [String: [Pupil]] {
+    private var groupedPupils: [String: [PupilModel]] {
         print("grouping")
         return Dictionary(
             grouping: filteredPupils.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
@@ -65,14 +65,14 @@ struct PupilView: View {
                     }
                 }
             }
-            .navigationDestination(for: Pupil.self) { pupil in
+            .navigationDestination(for: PupilModel.self) { pupil in
                 PupilDetailView(pupil: pupil)
             }
         }
     }
     private func addItem() {
         withAnimation {
-            let newPupil = Pupil()
+            let newPupil = PupilModel()
             modelContext.insert(newPupil)
             path.append(newPupil)
         }
@@ -92,5 +92,5 @@ struct PupilView: View {
 
 #Preview {
     PupilView()
-        .modelContainer(for: Pupil.self, inMemory: true)
+        .modelContainer(for: PupilModel.self, inMemory: true)
 }

@@ -33,5 +33,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
-        .modelContainer(for: Pupil.self, inMemory: true)
+        .modelContainer(for: PupilModel.self, inMemory: true)
 }

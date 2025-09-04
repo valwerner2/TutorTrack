@@ -12,7 +12,7 @@ import SwiftData
 final class TransactionModel {
     var amount: Double
     var isBankTransfer: Bool?
-    var pupil: Pupil?
+    var pupil: PupilModel?
     var calendarEntry: CalendarEntry
     var title: String
     var note: String

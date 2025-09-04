@@ -1,5 +1,5 @@
 //
-//  Pupil.swift
+//  PupilModel.swift
 //  TutorTrack
 //
 //  Created by Valentin Werner on 21.08.25.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Pupil {
+final class PupilModel {
     var name: String
     var email: String
     var phone: String
