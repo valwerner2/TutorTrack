@@ -12,7 +12,7 @@ struct MainView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            Text("Today")
+            CalendarView()
                 .tabItem{
                     Label("Calendar", systemImage: "calendar")
                 }
