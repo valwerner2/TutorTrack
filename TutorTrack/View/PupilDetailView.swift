@@ -15,12 +15,7 @@ struct PupilDetailView: View {
     @FocusState private var nameFieldIsFocused: Bool
     
     var body: some View {
-        VStack(spacing: 0) {
-            Text(pupil.name)
-                .font(.largeTitle)
-            
-            
-        
+        NavigationStack() {
             List {
                 Section(
                     header:
@@ -78,6 +73,7 @@ struct PupilDetailView: View {
                 }
                 PupilDetailTransactionView(pupil: pupil)
             }
+            .navigationTitle(pupil.name)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -93,7 +89,6 @@ struct PupilDetailView: View {
                     }
                 }
             }
-            
         }
     }
 }

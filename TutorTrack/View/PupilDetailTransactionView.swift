@@ -18,35 +18,43 @@ struct PupilDetailTransactionView: View {
     @State private var showSheet = false
     
     var body: some View {
-        if editMode?.wrappedValue.isEditing != true && !pupil.transactions.isEmpty {
-            Section(
-                header:
-                    Text("Transactions")
-                    .font(.headline)
-                    .textCase(nil)
-            ) {
+        Section(
+            header:
+                Text("Transactions")
+                .font(.headline)
+                .textCase(nil)
+        ) {
+            if editMode?.wrappedValue.isEditing != true && !pupil.transactions.isEmpty {
                 PupilDetailTransactionViewList(transactions: Array(pupil.transactions.prefix(countToDisplay)))
                 
                 if pupil.transactions.count >= countToDisplay {
                     Button("show all") {
                         showSheet = true
                     }
-                }
-            }
-            .sheet(isPresented: $showSheet) {
-                NavigationStack{
-                    List{
-                        PupilDetailTransactionViewList(transactions: Array(pupil.transactions))
-                    }
-                    .navigationTitle(pupil.name + "'s Transactions")
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("Done") {
-                                showSheet = false
+                    .sheet(isPresented: $showSheet) {
+                        NavigationStack{
+                            List{
+                                PupilDetailTransactionViewList(transactions: Array(pupil.transactions))
+                            }
+                            .navigationTitle("Transactions of " + pupil.name)
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarTrailing) {
+                                    Button("Done") {
+                                        showSheet = false
+                                    }
+                                }
                             }
                         }
                     }
                 }
+            }
+            else if editMode?.wrappedValue.isEditing == true
+            {
+                Text("Exit Editing-Mode to see transactions")
+            }
+            else
+            {
+                Text("No transations linked to " + pupil.name)
             }
         }
     }
