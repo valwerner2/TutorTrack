@@ -73,7 +73,6 @@ struct PupilDetailView: View {
             PupilDetailTransactionView(pupil: pupil)
         }
         .navigationTitle(pupil.name)
-        .naviga
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
