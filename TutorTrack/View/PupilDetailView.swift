@@ -15,78 +15,77 @@ struct PupilDetailView: View {
     @FocusState private var nameFieldIsFocused: Bool
     
     var body: some View {
-        NavigationStack() {
-            List {
-                Section(
-                    header:
-                        Text("Personal Data")
-                        .font(.headline)
-                        .textCase(nil)
-                ) {
+        List {
+            Section(
+                header:
+                    Text("Personal Data")
+                    .font(.headline)
+                    .textCase(nil)
+            ) {
+                if editMode?.wrappedValue.isEditing == true {
+                    HStack {
+                        Text("Name").bold()
+                        Spacer()
+                        TextField("Name", text: $editingPupil.name)
+                            .focused($nameFieldIsFocused)
+                    }
+                }
+            
+                HStack {
+                    Text("E-Mail").bold()
+                    Spacer()
                     if editMode?.wrappedValue.isEditing == true {
-                        HStack {
-                            Text("Name").bold()
-                            Spacer()
-                            TextField("Name", text: $editingPupil.name)
-                                .focused($nameFieldIsFocused)
-                        }
-                    }
-                
-                    HStack {
-                        Text("E-Mail").bold()
-                        Spacer()
-                        if editMode?.wrappedValue.isEditing == true {
-                            TextField("E-Mail", text: $editingPupil.email)
-                        } else {
-                            Text(pupil.email.isEmpty ? "-" : pupil.email)
-                        }
-                    }
-                    HStack {
-                        Text("Phone").bold()
-                        Spacer()
-                        if editMode?.wrappedValue.isEditing == true {
-                            TextField("Phone", text: $editingPupil.phone)
-                        } else {
-                            Text(pupil.phone.isEmpty ? "-" : pupil.phone)
-                        }
-                    }
-                    HStack {
-                        Text("Parent-Phone").bold()
-                        Spacer()
-                        if editMode?.wrappedValue.isEditing == true {
-                            TextField("Parent-Phone", text: $editingPupil.phoneParent)
-                        } else {
-                            Text(pupil.phoneParent.isEmpty ? "-" : pupil.phoneParent)
-                        }
-                    }
-                    HStack {
-                        Text("Hourly Rate").bold()
-                        Spacer()
-                        if editMode?.wrappedValue.isEditing == true {
-                            TextField("Hourly Rate", value: $editingPupil.hourlyRate, format: .number
-                            )
-                            .keyboardType(.decimalPad)
-                        } else {
-                            Text(String(pupil.hourlyRate))
-                        }
+                        TextField("E-Mail", text: $editingPupil.email)
+                    } else {
+                        Text(pupil.email.isEmpty ? "-" : pupil.email)
                     }
                 }
-                PupilDetailTransactionView(pupil: pupil)
-            }
-            .navigationTitle(pupil.name)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                HStack {
+                    Text("Phone").bold()
+                    Spacer()
+                    if editMode?.wrappedValue.isEditing == true {
+                        TextField("Phone", text: $editingPupil.phone)
+                    } else {
+                        Text(pupil.phone.isEmpty ? "-" : pupil.phone)
+                    }
+                }
+                HStack {
+                    Text("Parent-Phone").bold()
+                    Spacer()
+                    if editMode?.wrappedValue.isEditing == true {
+                        TextField("Parent-Phone", text: $editingPupil.phoneParent)
+                    } else {
+                        Text(pupil.phoneParent.isEmpty ? "-" : pupil.phoneParent)
+                    }
+                }
+                HStack {
+                    Text("Hourly Rate").bold()
+                    Spacer()
+                    if editMode?.wrappedValue.isEditing == true {
+                        TextField("Hourly Rate", value: $editingPupil.hourlyRate, format: .number
+                        )
+                        .keyboardType(.decimalPad)
+                    } else {
+                        Text(String(pupil.hourlyRate))
+                    }
                 }
             }
-            .onAppear {
-                editingPupil = pupil
-                if pupil.name.isEmpty
-                {
-                    editMode?.wrappedValue = .active
-                    DispatchQueue.main.async {
-                        nameFieldIsFocused = true
-                    }
+            PupilDetailTransactionView(pupil: pupil)
+        }
+        .navigationTitle(pupil.name)
+        .naviga
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+        }
+        .onAppear {
+            editingPupil = pupil
+            if pupil.name.isEmpty
+            {
+                editMode?.wrappedValue = .active
+                DispatchQueue.main.async {
+                    nameFieldIsFocused = true
                 }
             }
         }
