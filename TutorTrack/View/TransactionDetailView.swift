@@ -15,7 +15,7 @@ struct TransactionDetailView: View {
     
     @State private var editingTransaction = TransactionModel()
     @Environment(\.editMode) private var editMode
-    @FocusState private var nameFieldIsFocused: Bool
+    @FocusState private var amountFieldFocused: Bool
     
     @Environment(\.modelContext) private var modelContext
     @Query private var pupils: [PupilModel]
@@ -28,7 +28,7 @@ struct TransactionDetailView: View {
                     .font(.headline)
                     .textCase(nil)
             ) {
-                PupilPickerView(transaction: transaction, suggested: Array(pupils[0..<2]))
+                PupilPickerView(transaction: transaction, suggested: []) //Array(pupils[0..<2]))
             }
             Section(
                 header:
@@ -43,6 +43,7 @@ struct TransactionDetailView: View {
                         TextField("Amount", value: $editingTransaction.amount, format: .number
                         )
                         .keyboardType(.decimalPad)
+                        .focused($amountFieldFocused)
                     } else {
                         Text(String(transaction.amount))
                     }
@@ -68,16 +69,40 @@ struct TransactionDetailView: View {
             }
             Section(
                 header:
+                    Text("Linked Class")
+                    .font(.headline)
+                    .textCase(nil)
+            ) {
+                
+            }
+            Section(
+                header:
+                    Text("Date")
+                    .font(.headline)
+                    .textCase(nil)
+            ) {
+                if editMode?.wrappedValue.isEditing == true {
+                    DatePicker(
+                        "Start Date",
+                        selection: $editingTransaction.calendarEntry.start,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(.graphical)
+                }else{
+                    Text(transaction.calendarEntry.start, format: .dateTime.day().month().year())
+                }
+            }
+            Section(
+                header:
                     Text("Additional Info")
                     .font(.headline)
                     .textCase(nil)
             ) {
                 if editMode?.wrappedValue.isEditing == true {
                     HStack {
-                        Text("Name").bold()
+                        Text("Title").bold()
                         Spacer()
-                        TextField("Name", text: $editingTransaction.title)
-                            .focused($nameFieldIsFocused)
+                        TextField("Title", text: $editingTransaction.title)
                     }
                 }
                 
@@ -105,7 +130,7 @@ struct TransactionDetailView: View {
             {
                 editMode?.wrappedValue = .active
                 DispatchQueue.main.async {
-                    nameFieldIsFocused = true
+                    amountFieldFocused = true
                 }
             }
         }
