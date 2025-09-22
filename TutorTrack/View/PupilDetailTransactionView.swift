@@ -68,14 +68,17 @@ struct PupilDetailTransactionViewList: View{
             NavigationLink {
                 TransactionDetailView(transaction: currentTransaction, update: nil)
             } label: {
-                HStack{
+                HStack {
                     Text(currentTransaction.title)
-                    Spacer()
-                    Text(String(currentTransaction.amount))
-                    Spacer()
-                    Text("DATE")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Text(String(currentTransaction.amount) + "zł")
+                        .frame(width: 80, alignment: .leading)
+
+                    Text(currentTransaction.calendarEntry.start, format: .dateTime.day().month().year())
+                        .frame(width: 120, alignment: .trailing)
                 }
             }
         }
-        }
+    }
 }
