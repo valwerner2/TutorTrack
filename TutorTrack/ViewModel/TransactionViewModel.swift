@@ -27,14 +27,14 @@ class TransactionViewModel: ObservableObject {
     func update(from transactions: [TransactionModel]) {
         let now = Date()
         
-        let todayTransactions = transactions.filter({Calendar.current.isDate($0.calendarEntry.start, inSameDayAs: now)})
+        let todayTransactions = transactions.filter({Calendar.current.isDate($0.date, inSameDayAs: now)})
         
         let monthTransactions = transactions.filter {
-            Calendar.current.isDate($0.calendarEntry.start, equalTo: now, toGranularity: .month)
+            Calendar.current.isDate($0.date, equalTo: now, toGranularity: .month)
         }
         
         let yearTransactions = transactions.filter {
-            Calendar.current.isDate($0.calendarEntry.start, equalTo: now, toGranularity: .year)
+            Calendar.current.isDate($0.date, equalTo: now, toGranularity: .year)
         }
         
         self.amountToday = sumTransactions(array: todayTransactions)

@@ -75,7 +75,7 @@ struct PupilDetailTransactionViewList: View{
                     Text(String(currentTransaction.amount) + "zł")
                         .frame(width: 80, alignment: .leading)
 
-                    Text(currentTransaction.calendarEntry.start, format: .dateTime.day().month().year())
+                    Text(currentTransaction.date, format: .dateTime.day().month().year())
                         .frame(width: 120, alignment: .trailing)
                 }
             }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class CalendarEntry {
+final class CalendarEntryModel {
     var start: Date
     var end: Date?
     

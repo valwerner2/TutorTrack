@@ -13,7 +13,7 @@ final class TransactionModel {
     var amount: Double
     var isBankTransfer: Bool?
     var pupil: PupilModel?
-    var calendarEntry: CalendarEntry
+    var date: Date
     var title: String
     var note: String
     
@@ -21,7 +21,7 @@ final class TransactionModel {
         self.amount = 0
         self.isBankTransfer = true
         self.pupil = nil
-        self.calendarEntry = CalendarEntry()
+        self.date = Date()
         self.title = ""
         self.note = ""
     }
