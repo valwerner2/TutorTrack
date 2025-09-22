@@ -14,7 +14,7 @@ struct TutorTrackApp: App {
         let schema = Schema([
             PupilModel.self,
             TransactionModel.self,
-            CalendarEntryModel.self,
+            BlockerModel.self,
             ClassModel.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

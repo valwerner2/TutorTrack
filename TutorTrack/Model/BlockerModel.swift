@@ -1,18 +1,16 @@
 //
-//  ClassModel.swift
+//  BlockerModel.swift
 //  TutorTrack
 //
-//  Created by Valentin Werner on 22.09.25.
+//  Created by Valentin Werner on 22.08.25.
 //
 
 import Foundation
 import SwiftData
 
 @Model
-final class ClassModel {
+final class BlockerModel {
     var title: String
-    var pupilModel: PupilModel?
-    var transaction: TransactionModel?
     var dateInterval: DateInterval
     var note: String
     
