@@ -33,6 +33,9 @@ struct CalendarView: View {
                                 Spacer()
                                 Text(currentClass.dateInterval.start, format: .dateTime.day().month().year())
                                     .frame(width: 120, alignment: .trailing)
+                                Spacer()
+                                Text(currentClass.dateInterval.end, format: .dateTime.day().month().year())
+                                    .frame(width: 120, alignment: .trailing)
                             }
                         }
                     }
@@ -52,6 +55,9 @@ struct CalendarView: View {
                                 Text(currentBlocker.title)
                                 Spacer()
                                 Text(currentBlocker.dateInterval.start, format: .dateTime.day().month().year())
+                                    .frame(width: 120, alignment: .trailing)
+                                Spacer()
+                                Text(currentBlocker.dateInterval.end, format: .dateTime.day().month().year())
                                     .frame(width: 120, alignment: .trailing)
                             }
                         }

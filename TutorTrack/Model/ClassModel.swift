@@ -18,7 +18,11 @@ final class ClassModel {
     
     init(){
         self.title = ""
-        self.dateInterval = DateInterval()
+        
+        let now = Date()
+        let oneHourLater = Calendar.current.date(byAdding: .hour, value: 1, to: now)!
+        self.dateInterval = DateInterval(start: now, end: oneHourLater)
+        
         self.note = ""
     }
 }
