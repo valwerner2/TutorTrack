@@ -9,6 +9,12 @@ import SwiftUI
 
 struct DateIntervalPicker: View {
     @Binding var interval: DateInterval
+    let allDayOption: Bool
+        
+    init(interval: Binding<DateInterval>, allDayOption: Bool = false) {
+        self._interval = interval
+        self.allDayOption = allDayOption
+    }
     
     @Environment(\.editMode) private var editMode
     
@@ -17,11 +23,13 @@ struct DateIntervalPicker: View {
     var body: some View {
         VStack{
             if editMode?.wrappedValue.isEditing == true {
-                Toggle(
-                    "All day",
-                    systemImage: "calendar.badge.exclamationmark",
-                    isOn: $allDay
-                )
+                if allDayOption {
+                    Toggle(
+                        "All day",
+                        systemImage: "calendar.badge.exclamationmark",
+                        isOn: $allDay
+                    )
+                }
                 
                 DatePicker(
                     allDay ? "Date" : "Start",

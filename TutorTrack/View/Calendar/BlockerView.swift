@@ -47,7 +47,7 @@ struct BlockerView: View {
                     .font(.headline)
                     .textCase(nil)
             ){
-                DateIntervalPicker(interval: $editingBlocker.dateInterval)
+                DateIntervalPicker(interval: $editingBlocker.dateInterval, allDayOption: true)
             }
         }
         .navigationTitle(blocker.title)
