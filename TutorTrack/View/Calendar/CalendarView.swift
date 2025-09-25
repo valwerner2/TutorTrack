@@ -31,11 +31,7 @@ struct CalendarView: View {
                             HStack{
                                 Text(currentClass.title)
                                 Spacer()
-                                Text(currentClass.dateInterval.start, format: .dateTime.day().month().year())
-                                    .frame(width: 120, alignment: .trailing)
-                                Spacer()
-                                Text(currentClass.dateInterval.end, format: .dateTime.day().month().year())
-                                    .frame(width: 120, alignment: .trailing)
+                                DateDisplayView(value: .interval(currentClass.dateInterval))
                             }
                         }
                     }
@@ -54,11 +50,7 @@ struct CalendarView: View {
                             HStack{
                                 Text(currentBlocker.title)
                                 Spacer()
-                                Text(currentBlocker.dateInterval.start, format: .dateTime.day().month().year())
-                                    .frame(width: 120, alignment: .trailing)
-                                Spacer()
-                                Text(currentBlocker.dateInterval.end, format: .dateTime.day().month().year())
-                                    .frame(width: 120, alignment: .trailing)
+                                DateDisplayView(value: .interval(currentBlocker.dateInterval))
                             }
                         }
                     }

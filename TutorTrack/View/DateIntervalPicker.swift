@@ -46,7 +46,7 @@ struct DateIntervalPicker: View {
                     .datePickerStyle(.compact)
                 }
             }else{
-                Text(interval.start, format: .dateTime.day().month().year())
+                DateDisplayView(value: .interval(interval))
             }
         }
         .onChange(of: allDay, {

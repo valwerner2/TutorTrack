@@ -48,6 +48,14 @@ struct ClassView: View {
             ){
                 DateIntervalPicker(interval: $classModel.dateInterval)
             }
+            Section(
+                header:
+                    Text("Person")
+                    .font(.headline)
+                    .textCase(nil)
+            ){
+                //Pupil picker
+            }
         }
         .navigationTitle(classModel.title)
         .toolbar {
