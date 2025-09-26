@@ -53,6 +53,9 @@ struct PupilPickerView: View {
                         Image(systemName: "checkmark")
                             .foregroundColor(.blue)
                     }
+                    .onTapGesture {
+                        self.pupil = nil
+                    }
                 }
             }
             ForEach(suggested) { pupil in
@@ -68,7 +71,11 @@ struct PupilPickerView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    self.pupil = pupil
+                    if self.pupil == pupil{
+                        self.pupil = nil
+                    }else{
+                        self.pupil = pupil
+                    }
                 }
             }
             
@@ -92,7 +99,11 @@ struct PupilPickerView: View {
                                     }
                                     .contentShape(Rectangle())
                                     .onTapGesture {
-                                        self.pupil = pupil
+                                        if self.pupil == pupil{
+                                            self.pupil = nil
+                                        }else{
+                                            self.pupil = pupil
+                                        }
                                     }
                                 }
                             }

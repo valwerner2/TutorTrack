@@ -62,7 +62,7 @@ struct ClassView: View {
                     .font(.headline)
                     .textCase(nil)
             ){
-                ClassViewTransactionPicker()
+                ClassViewTransactionPicker(pupil: $classModel.pupilModel, transaction: $classModel.transaction)
             }
         }
         .navigationTitle(classModel.title)
@@ -79,6 +79,9 @@ struct ClassView: View {
                     titleFieldIsFocused = true
                 }
             }
+        }
+        .onChange(of: classModel.pupilModel) { _, newValue in
+            classModel.transaction = nil
         }
     }
 }
