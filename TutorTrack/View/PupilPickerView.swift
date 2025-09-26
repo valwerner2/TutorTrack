@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct PupilPickerView: View {
-    let transaction: TransactionModel
+    @Binding var pupil: PupilModel?
     let suggested: [PupilModel]
     
     @Environment(\.modelContext) private var modelContext
@@ -44,7 +44,7 @@ struct PupilPickerView: View {
     
     var body: some View {
         if editMode?.wrappedValue.isEditing == true {
-            if let selectedPupil = transaction.pupil{
+            if let selectedPupil = self.pupil{
                 if !suggested.contains(selectedPupil)
                 {
                     HStack{
@@ -59,7 +59,7 @@ struct PupilPickerView: View {
                 HStack {
                     Text(pupil.name)
                     Spacer()
-                    if let selectedPupil = transaction.pupil{
+                    if let selectedPupil = self.pupil{
                         if selectedPupil == pupil{
                             Image(systemName: "checkmark")
                                 .foregroundColor(.blue)
@@ -68,7 +68,7 @@ struct PupilPickerView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    transaction.pupil = pupil
+                    self.pupil = pupil
                 }
             }
             
@@ -85,14 +85,14 @@ struct PupilPickerView: View {
                                     HStack {
                                         Text(pupil.name)
                                         Spacer()
-                                        if transaction.pupil == pupil {
+                                        if self.pupil == pupil {
                                             Image(systemName: "checkmark")
                                                 .foregroundColor(.blue)
                                         }
                                     }
                                     .contentShape(Rectangle())
                                     .onTapGesture {
-                                        transaction.pupil = pupil
+                                        self.pupil = pupil
                                     }
                                 }
                             }
@@ -103,7 +103,7 @@ struct PupilPickerView: View {
                 }
             }
         }
-        else if let pupilToShow = transaction.pupil {
+        else if let pupilToShow = self.pupil {
             HStack {
                 Text("Name").bold()
                 Spacer()

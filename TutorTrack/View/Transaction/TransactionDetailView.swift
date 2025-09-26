@@ -10,12 +10,13 @@ import SwiftUI
 import SwiftData
 
 struct TransactionDetailView: View {
-    let transaction: TransactionModel
+    @Bindable var transaction: TransactionModel
     let update: (() -> Void)?
     
-    @State private var editingTransaction = TransactionModel()
     @Environment(\.editMode) private var editMode
     @FocusState private var amountFieldFocused: Bool
+    
+    @State private var pupilWrapper = PupilModelWrapper()
     
     @Environment(\.modelContext) private var modelContext
     @Query private var pupils: [PupilModel]
@@ -28,7 +29,7 @@ struct TransactionDetailView: View {
                     .font(.headline)
                     .textCase(nil)
             ) {
-                PupilPickerView(transaction: transaction, suggested: []) //Array(pupils[0..<2]))
+                PupilPickerView(pupil: $transaction.pupil, suggested: []) //Array(pupils[0..<2]))
             }
             Section(
                 header:
@@ -40,7 +41,7 @@ struct TransactionDetailView: View {
                     Text("Amount").bold()
                     Spacer()
                     if editMode?.wrappedValue.isEditing == true {
-                        TextField("Amount", value: $editingTransaction.amount, format: .number
+                        TextField("Amount", value: $transaction.amount, format: .number
                         )
                         .keyboardType(.decimalPad)
                         .focused($amountFieldFocused)
@@ -51,14 +52,14 @@ struct TransactionDetailView: View {
                 HStack {
                     Text("Type").bold()
                     Spacer()
-                    if editingTransaction.isBankTransfer != nil {
+                    if transaction.isBankTransfer != nil {
                         if editMode?.wrappedValue.isEditing == true {
                             Toggle("Bank Transfer", isOn: Binding(
-                                get: { editingTransaction.isBankTransfer! },
-                                set: { editingTransaction.isBankTransfer = $0 }
+                                get: { transaction.isBankTransfer! },
+                                set: { transaction.isBankTransfer = $0 }
                             ))
                         }
-                        else if let isBankTransfer = editingTransaction.isBankTransfer {
+                        else if let isBankTransfer = transaction.isBankTransfer {
                             Text(isBankTransfer ? "Bank Transfer" : "Cash")
                         }
                     }
@@ -84,7 +85,7 @@ struct TransactionDetailView: View {
                 if editMode?.wrappedValue.isEditing == true {
                     DatePicker(
                         "Start Date",
-                        selection: $editingTransaction.date,
+                        selection: $transaction.date,
                         displayedComponents: [.date]
                     )
                     .datePickerStyle(.graphical)
@@ -102,7 +103,7 @@ struct TransactionDetailView: View {
                     HStack {
                         Text("Title").bold()
                         Spacer()
-                        TextField("Title", text: $editingTransaction.title)
+                        TextField("Title", text: $transaction.title)
                     }
                 }
                 
@@ -110,9 +111,9 @@ struct TransactionDetailView: View {
                     Text("Note").bold()
                     Spacer()
                     if editMode?.wrappedValue.isEditing == true {
-                        TextField("Note", text: $editingTransaction.note)
+                        TextField("Note", text: $transaction.note)
                     } else {
-                        Text(transaction.note.isEmpty ? "-" : editingTransaction.note)
+                        Text(transaction.note.isEmpty ? "-" : transaction.note)
                     }
                 }
             }
@@ -125,7 +126,6 @@ struct TransactionDetailView: View {
             }
         }
         .onAppear {
-            editingTransaction = transaction
             if transaction.title.isEmpty
             {
                 editMode?.wrappedValue = .active
