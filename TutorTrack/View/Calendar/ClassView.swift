@@ -56,6 +56,14 @@ struct ClassView: View {
             ){
                 PupilPickerView(pupil: $classModel.pupilModel, suggested: [])
             }
+            Section(
+                header:
+                    Text("Transation")
+                    .font(.headline)
+                    .textCase(nil)
+            ){
+                ClassViewTransactionPicker()
+            }
         }
         .navigationTitle(classModel.title)
         .toolbar {
