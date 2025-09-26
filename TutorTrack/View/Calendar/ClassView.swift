@@ -54,7 +54,7 @@ struct ClassView: View {
                     .font(.headline)
                     .textCase(nil)
             ){
-                //Pupil picker
+                PupilPickerView(pupil: $classModel.pupilModel, suggested: [])
             }
         }
         .navigationTitle(classModel.title)

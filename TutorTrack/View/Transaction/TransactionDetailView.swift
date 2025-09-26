@@ -16,8 +16,6 @@ struct TransactionDetailView: View {
     @Environment(\.editMode) private var editMode
     @FocusState private var amountFieldFocused: Bool
     
-    @State private var pupilWrapper = PupilModelWrapper()
-    
     @Environment(\.modelContext) private var modelContext
     @Query private var pupils: [PupilModel]
     

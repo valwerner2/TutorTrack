@@ -109,22 +109,28 @@ struct PupilPickerView: View {
                 Spacer()
                 Text(pupilToShow.name)
             }
-            HStack {
-                Text("E-Mail").bold()
-                Spacer()
-                Text(pupilToShow.email.isEmpty ? "-" : pupilToShow.email)
+            if !pupilToShow.email.isEmpty {
+                HStack {
+                    Text("E-Mail").bold()
+                    Spacer()
+                    Text(pupilToShow.email)
+                }
             }
-            HStack {
-                Text("Phone").bold()
-                Spacer()
-                Text(pupilToShow.phone.isEmpty ? "-" : pupilToShow.phone)
-            
+            if !pupilToShow.phone.isEmpty {
+                HStack {
+                    Text("Phone").bold()
+                    Spacer()
+                    Text(pupilToShow.phone)
+                    
+                }
             }
-            HStack {
-                Text("Parent-Phone").bold()
-                Spacer()
-                Text(pupilToShow.phoneParent.isEmpty ? "-" : pupilToShow.phoneParent)
-                
+            if !pupilToShow.phoneParent.isEmpty {
+                HStack {
+                    Text("Parent-Phone").bold()
+                    Spacer()
+                    Text(pupilToShow.phoneParent)
+                    
+                }
             }
             HStack {
                 Text("Hourly Rate").bold()
